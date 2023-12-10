@@ -230,7 +230,9 @@ default. Default value is `ellama-template'."
 (defun ellama-ask ()
   "Ask ellama about something."
   (interactive)
-  (let ((prompt (read-string "Ask ellama: ")))
+ (let ((prompt (if (region-active-p)
+                    (buffer-substring-no-properties (region-beginning) (region-end))
+                  (read-string "Ask ellama: "))))
     (ellama-query prompt :display t :log t :memory t)))
 
 ;;;###autoload
